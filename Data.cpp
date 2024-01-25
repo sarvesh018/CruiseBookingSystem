@@ -13,9 +13,7 @@ class Passenger{
     public:
         void setPassengerDetails(){
             cout<<"Enter your name: ";
-            // getline(cin, nameOfPassenger);
             cin>>nameOfPassenger;
-            // cout<<endl;
             cout<<"Enter phone number: ";
             cin>>passengerNumber;
 
@@ -26,12 +24,13 @@ class Passenger{
             passengerId += passengerNumber.substr(0,3);
         }
 
+
         // getter function to get customer's individual details
         string getPassengerName(){
             return nameOfPassenger;
         }
-        string getPassengerNumber(){
-            return passengerNumber;
+        string getPassengerID(){
+            return passengerId;
         }
 
         void showPassengersDetails(){
@@ -66,7 +65,7 @@ class Data{
                         istringstream iss(line);
                         string s;
                         while(getline(iss, s, '|')){
-                            ids.push_back((s));
+                            ids.push_back(s);
                         }
                     }
                 }
@@ -81,13 +80,22 @@ class Data{
         void updateNames(string newName){
             names.push_back(newName);
         }
-        void updateNumbers(string newNum){
+        void updateID(string newNum){
             ids.push_back(newNum);
         }
         string getNames(){
             // creating a string of names separated with comma
             string result = "";
             for(auto x: names){
+                result += x;
+                result += '|';
+            }
+            return result;
+        }
+        string getIDs(){
+            // creating a string of names separated with comma
+            string result = "";
+            for(auto x: ids){
                 result += x;
                 result += '|';
             }
@@ -119,8 +127,7 @@ class Data{
             }
 
             outputFile.close();
-        }
-        
+        }        
 };
 
 int main() {
@@ -136,19 +143,24 @@ int main() {
 
         Data data(filename);
         cout<<data.getNames()<<endl;
+        cout<<data.getIDs()<<endl;
 
         Passenger p1;
         p1.setPassengerDetails();
         p1.showPassengersDetails();
 
         data.updateNames(p1.getPassengerName());
+        data.updateID(p1.getPassengerID());
+
+        // updating details
+        string newIDs = data.getIDs();
+        data.updateNameDetailsInFile(filename, 5, newIDs);
         string newNames = data.getNames();
         data.updateNameDetailsInFile(filename, 2, newNames);
+        
     }
     
-    // Data data2(filename);
-    // cout<<data2.getNames()<<endl;
-
+    
 
     return 0;
 }
