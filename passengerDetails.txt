@@ -1,9 +1,30 @@
-Passenger Id: 				ABH852
+Passenger Id: 			SAR684
 Cruise Id: 				TO125
-Name: 				Abhishek Khare
-Phone number: 				8523697412
-Seats Booked: 				D28 D45 
+Name: 					Sarvesh Choudhary
+Phone number: 			6845321
+Seats Booked: 			E26 E35 
+Seat Type: 				Economy
 Journey: 				Kochi ---> Lakshdweep
 Duration: 				01/02/24 | 13:00 ---> 03/02/24 | 15:00
-Status: 				Booked!
--------------------------------------------
+Status: 				Booked :)
+-------------------------------------------------------------------
+Passenger Id: 			ABH984
+Cruise Id: 				IND026
+Name: 					Abhishek Khare
+Phone number: 			9846321
+Seats Booked: 			B122 
+Seat Type: 				Business
+Journey: 				Pondicherry ---> Goa
+Duration: 				03/02/24 | 02:00 ---> 03/02/24 | 17:30
+Status: 				Booked :)
+-------------------------------------------------------------------
+Passenger Id: 			SAK984
+Cruise Id: 				BHT220
+Name: 					Saksham Sahu
+Phone number: 			984651322
+Seats Booked: 			D371 
+Seat Type: 				Delux
+Journey: 				Mumbai ---> Lakshdweep
+Duration: 				05/02/24 | 15:45 ---> 07/02/24 | 3:40
+Status: 				Booked :)
+-------------------------------------------------------------------

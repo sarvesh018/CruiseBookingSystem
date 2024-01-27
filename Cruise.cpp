@@ -8,8 +8,9 @@
 
 using namespace std;
 
-Cruise::Cruise(const string& filename)
+Cruise::Cruise(string filename)
 {
+    this->filename = filename;
     fstream inputFile(filename);
     if (!inputFile.is_open())
     {
@@ -26,147 +27,256 @@ Cruise::Cruise(const string& filename)
         currentLine++;
         if (currentLine == cruiseIdLine)
         {
+            // cout << "The cruise id is: " << line << endl
+            //         << endl;
             cruiseID = line;
         }
         else if (currentLine == cruiseNameLine)
         {
+            // cout << "The cruise name is: " << line << endl
+            //         << endl;
             cruiseName = line;
         }
         else if (currentLine == 8)
         {
             stringstream ss(line);
             string numberStr;
+            // cout << "Business class seats are: ";
             while (getline(ss, numberStr, '|'))
             {
                 string number;
                 istringstream(numberStr) >> number;
+                // cout << number << " ";
                 availableB.push_back(number);
             }
+            // cout << endl
+            //         << endl;
         }
         else if (currentLine == 11)
         {
             stringstream ss(line);
             string numberStr;
+            // cout << "Economy class seats are: ";
             while (getline(ss, numberStr, '|'))
             {
                 string number;
                 istringstream(numberStr) >> number;
+                // cout << number << " ";
                 availableE.push_back(number);
             }
+            // cout << endl
+            //         << endl;
         }
         else if (currentLine == 14)
         {
             stringstream ss(line);
             string numberStr;
+            // cout << "Deluxe class seats are: ";
             while (getline(ss, numberStr, '|'))
             {
                 string number;
                 istringstream(numberStr) >> number;
+                // cout << number << " ";
                 availableD.push_back(number);
             }
+            // cout << endl
+            //         << endl;
         }
         else if (currentLine == 17)
         {
             stringstream ss(line);
             string numberStr;
             int i = 0;
+            // cout << "Business class booked seats are: ";
             while (getline(ss, numberStr, '|'))
             {
                 string number;
                 istringstream(numberStr) >> number;
                 bookedB.push_back(number);
+                // cout << bookedB[i++] << " ";
             }
+            // cout << endl
+            //         << endl;
         }
         else if (currentLine == 20)
         {
             stringstream ss(line);
             string numberStr;
             int i = 0;
+            // cout << "Economy class booked seats are: ";
             while (getline(ss, numberStr, '|'))
             {
                 string number;
                 istringstream(numberStr) >> number;
                 bookedE.push_back(number);
+                // cout << bookedE[i++] << " ";
             }
+            // cout << endl
+            //         << endl;
         }
         else if (currentLine == 23)
         {
             stringstream ss(line);
             string numberStr;
             int i = 0;
+            // cout << "Deluxe class booked seats are: ";
             while (getline(ss, numberStr, '|'))
             {
                 string number;
                 istringstream(numberStr) >> number;
                 bookedD.push_back(number);
+                // cout << bookedD[i++] << " ";
             }
+            // cout << endl
+            //         << endl;
+            // cout << "Business seats available: ";
+
             for (const auto &element : availableB)
             {
                 if (find(bookedB.begin(), bookedB.end(), element) == bookedB.end())
                 {
                     freeB.push_back(element);
+                    // cout << element << " ";
                 }
             }
+
+            // cout << endl
+            //         << endl;
+            // cout << "Economy seats available: ";
+
             for (const auto &element : availableE)
             {
                 if (find(bookedE.begin(), bookedE.end(), element) == bookedE.end())
                 {
                     freeE.push_back(element);
+                    // cout << element << " ";
                 }
             }
+
+            // cout << endl
+            //         << endl;
+            // cout << "Deluxe seats available: ";
+
             for (const auto &element : availableD)
             {
                 if (find(bookedD.begin(), bookedD.end(), element) == bookedD.end())
                 {
                     freeD.push_back(element);
+                    // cout << element << " ";
                 }
             }
         }
         else if (currentLine == 26)
         {
+            // cout << endl
+            //         << endl;
             source = line;
+            // cout << "Source is: " << line << endl
+            //         << endl;
         }
         else if (currentLine == 29)
         {
             destination = line;
+            // cout << "Destination is: " << line << endl
+            //         << endl;
         }
         else if (currentLine == 32)
         {
-            departure = line;
+            departureTime = line;
+            // cout << "Departure Time is: " << line << endl
+            //         << endl;
         }
         else if (currentLine == 35)
         {
-            arrival = line;
+            arrivalTime = line;
+            // cout << "Arrival Time is: " << line << endl
+            //         << endl;
+        }
+        else if (currentLine == 38)
+        {
+            priceB = stoi(line);
+            // cout << "Price of Business is: " << priceB << endl
+            //         << endl;
+        }
+        else if (currentLine == 41)
+        {
+            priceE = stoi(line);
+            // cout << "Price of Business is: " << priceE << endl
+            //         << endl;
+        }
+        else if (currentLine == 44)
+        {
+            priceD = stoi(line);
+            // cout << "Price of Business is: " << priceD << endl
+            //         << endl;
         }
     }
     inputFile.close();
 }
 
-void Cruise::updateBooking(string a, string filename)
+void Cruise::deleteBooking(const string &targetString)
 {
-    int lineNumberToUpdate;
-    int availableLine;
-    vector<string> valuesToAdd;
+    // Determine in which vector the element is present
+    const vector<string> *targetVector = nullptr;
+    int lineNumber = -1;
 
-    if (a == "BU")
+    if (find(bookedB.begin(), bookedB.end(), targetString) != bookedB.end())
     {
-        lineNumberToUpdate = 16;
-        availableLine = 8;
-        valuesToAdd = this->freeB;
+        auto it = std::find(bookedB.begin(), bookedB.end(), targetString);
+        bookedB.erase(it);
+        freeB.clear();
+        for (const auto &element : availableB)
+        {
+            if (find(bookedB.begin(), bookedD.end(), element) == bookedB.end())
+            {
+                freeB.push_back(element);
+                // cout << element << " ";
+            }
+        }
+        targetVector = &bookedB;
+        lineNumber = 16;
     }
-    else if (a == "EU")
+    else if (find(bookedE.begin(), bookedE.end(), targetString) != bookedE.end())
     {
-        lineNumberToUpdate = 19;
-        availableLine = 11;
-        valuesToAdd = this->freeE;
+        auto it = std::find(bookedE.begin(), bookedE.end(), targetString);
+        bookedE.erase(it);
+        freeE.clear();
+        for (const auto &element : availableE)
+        {
+            if (find(bookedE.begin(), bookedE.end(), element) == bookedE.end())
+            {
+                freeE.push_back(element);
+                // cout << element << " ";
+            }
+        }
+        targetVector = &bookedE;
+        lineNumber = 19;
     }
-    else if (a == "DU")
+    else if (find(bookedD.begin(), bookedD.end(), targetString) != bookedD.end())
     {
-        lineNumberToUpdate = 22;
-        availableLine = 14;
-        valuesToAdd = this->freeD;
+        // cout << "This hits" << endl;
+        auto it = std::find(bookedD.begin(), bookedD.end(), targetString);
+        bookedD.erase(it);
+        freeD.clear();
+        for (const auto &element : availableD)
+        {
+            if (find(bookedD.begin(), bookedD.end(), element) == bookedD.end())
+            {
+                freeD.push_back(element);
+                // cout << element << " ";
+            }
+        }
+        // cout << "Erased";
+        targetVector = &bookedD;
+        lineNumber = 22;
+    }
+    else
+    {
+        cerr << "Error: Element not found in any vector." << endl;
+        return;
     }
 
+    // Open the file for reading
     ifstream inputFile(filename);
 
     if (!inputFile.is_open())
@@ -186,62 +296,71 @@ void Cruise::updateBooking(string a, string filename)
     // Close the input file
     inputFile.close();
 
-    // if (lineNumberToUpdate < 0 || lineNumberToUpdate >= lines.size())
-    // {
-    //     cerr << "Error: Invalid line number." << endl;
-    //     return ;
+    // Check if the vectors are not empty
+    if (targetVector->empty())
+    {
+        cerr << "Error: Vector is empty." << endl;
+        return;
+    }
+
+    // Find the line number to update
+    // size_t lineNumber = distance(lines.begin(), find(lines.begin(), lines.end(), lines.front()));
+    // for (size_t i = 0; i < lines.size(); ++i) {
+    //     if (lines[i] == targetVector->front()) {
+    //         lineNumber = i;
+    //         break;
+    //     }
     // }
 
-    // Update the ith line
-    if (!valuesToAdd.empty())
-    {
-        // Extract the existing values from the line
-        stringstream ss(lines[lineNumberToUpdate]);
-        string value;
-        vector<string> existingValues;
+    // Update the line based on the target vector
+    stringstream ss(lines[lineNumber]);
+    string currentValue;
+    vector<string> values;
 
-        while (ss >> value)
+    while (getline(ss, currentValue, '|'))
+    {
+        if (find(targetVector->begin(), targetVector->end(), currentValue) == targetVector->end())
         {
-            existingValues.push_back(value);
+            values.push_back(currentValue);
             if (ss.peek() == '|')
             {
                 ss.ignore();
             }
         }
-
-        // Append a value from the vector to the existing values
-        existingValues.push_back(valuesToAdd.back());
-        if (a == "BU")
+        else
         {
-            this->bookedB.push_back(valuesToAdd.back());
-        }
-        else if (a == "EU")
-        {
-            this->bookedE.push_back(valuesToAdd.back());
-        }
-        else if (a == "DU")
-        {
-            this->bookedD.push_back(valuesToAdd.back());
-        }
-
-        valuesToAdd.pop_back();
-
-        // Construct the updated line
-        stringstream updatedLine;
-        for (size_t i = 0; i < existingValues.size(); ++i)
-        {
-            updatedLine << existingValues[i];
-            if (i != existingValues.size() - 1)
+            // Skip the value to be deleted
+            if (ss.peek() == '|')
             {
-                updatedLine << '|';
+                ss.ignore();
             }
         }
-
-        // cout << updatedLine.str();
-
-        // Update the line
-        lines[lineNumberToUpdate] = updatedLine.str();
     }
+
+    // Construct the updated line
+    string result;
+
+    // Iterate through the vector and concatenate the elements with "|"
+    // for (const string &element : targetVector)
+    // {
+    //     result += element;
+    //     if (&element != &targetVector->back())
+    //     {
+    //         result += "|";
+    //     }
+    // }
+    for (int i = 0; i < targetVector->size(); i++)
+    {
+        result += targetVector->at(i);
+        if (targetVector->at(i) != targetVector->back())
+        {
+            result += "|";
+        }
+    }
+    // cout << result;
+
+    // Update the line
+    lines[lineNumber] = result;
 
     // Open the file for writing
     ofstream outputFile(filename);
@@ -253,28 +372,21 @@ void Cruise::updateBooking(string a, string filename)
     }
 
     // Write the modified content back to the file
-    for (const string &updatedLine : lines)
+    for (size_t i = 0; i < lines.size(); ++i)
     {
-        outputFile << updatedLine << endl;
+        outputFile << lines[i];
+        if (i != lines.size() - 1)
+        {
+            outputFile << endl; // Add newline unless it's the last line
+        }
     }
 
     // Close the output file
     outputFile.close();
-    if (a == "BU")
-    {
-        freeB = valuesToAdd;
-    }
-    else if (a == "EU")
-    {
-        freeE = valuesToAdd;
-    }
-    else if (a == "DU")
-    {
-        freeD = valuesToAdd;
-    }
 
     // cout << "File updated successfully." << endl;
 }
+
 void Cruise::displayTypeDetails(vector<string> available, vector<string> booked){
     for(auto x: available){
         bool isBooked = false;
@@ -305,4 +417,75 @@ void Cruise::displayCruiseDetails(){
     cout<<"\tDelux Class ";
     displayTypeDetails(availableD, bookedD);
     cout<<endl;
+}
+
+void Cruise::updateSeatStatus(char ch, vector<string> seats, vector<string> free, vector<string> booked, string id){
+    int bookedLineNum;
+    if(ch == 'E'){
+        bookedLineNum = 20; 
+    }
+    else if(ch == 'B'){
+        bookedLineNum = 17;
+    }
+    else{
+        bookedLineNum = 23;
+    }
+    
+    // erase booked seat from free vector    
+    for(int i=0; i<seats.size(); i++){
+        string seat = seats[i];
+        for(int j=0; j<free.size(); j++){
+            if(free[j] == seat){
+                free.erase(free.begin()+j);
+                break;
+            }
+        }
+        booked.push_back(seat);
+    }
+         
+    string newData = "";
+    for(auto x: booked){
+        newData += x;
+        newData += '|';
+    }
+    booked.clear();
+    free.clear();
+
+    // updating seats into the cruise database
+    string filename;
+    if(id == "TO125"){
+        filename = "cruise1.txt";
+    }
+    else if(id == "IND026"){
+        filename = "cruise2.txt";
+    }
+    else if(id == "BHT220"){
+        filename = "cruise3.txt";
+    }
+    updateNameDetailsInFile(filename, bookedLineNum, newData);
+}
+
+void Cruise::updateNameDetailsInFile(const string& filename, int lineNumber, const string& newData){
+    ifstream inputFile(filename);
+    vector<string> lines;
+    string line;
+
+    // creating vector<string> of names already present in the file
+    while (getline(inputFile, line)) {
+        lines.push_back(line);
+    }
+
+    inputFile.close();
+
+    //erase the existing line
+    lines[lineNumber-1]="";
+    lines[lineNumber-1] += newData;
+
+    // save the file with updated data
+    ofstream outputFile(filename);
+    for(const string& modifiedLine: lines){
+        outputFile<<modifiedLine<<"\n";
+    }
+
+    outputFile.close();
 }

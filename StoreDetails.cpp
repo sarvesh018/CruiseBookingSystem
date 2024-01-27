@@ -17,19 +17,20 @@ void storeDetails::takeData() {
         cerr << "Error opening file!" << endl;
         return;
     }
-    fout << "Passenger Id: \t\t\t\t";
+    fout << "Passenger Id: \t\t\t";
     fout << id << endl;
     fout << "Cruise Id: \t\t\t\t";
     fout << cruiseId << endl;
-    fout << "Name: \t\t\t\t";
+    fout << "Name: \t\t\t\t\t";
     fout << name << endl;
-    fout << "Phone number: \t\t\t\t";
+    fout << "Phone number: \t\t\t";
     fout << phnNumber << endl;
-    fout << "Seats Booked: \t\t\t\t";
+    fout << "Seats Booked: \t\t\t";
         for (int i = 0; i < seats.size(); i++) {
             fout<<seats[i]<<" ";
         }
-    fout << endl;
+    fout<<endl;
+    fout<<"Seat Type: \t\t\t\t"<<seatType<<endl;
     fout << "Journey: \t\t\t\t";
     fout << source << " ---> " << destination << endl;
     fout << "Duration: \t\t\t\t";
@@ -45,7 +46,7 @@ void storeDetails::takeData() {
         fout << "Status: \t\t\t\t";
         fout << status << endl;
     }
-    fout << "-------------------------------------------"<<endl;
+    fout << "-------------------------------------------------------------------"<<endl;
     cout<<endl;
 }
 

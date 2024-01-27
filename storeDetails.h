@@ -14,6 +14,7 @@ class storeDetails {
             string source, destination;
             string departure, arrival;
             string status;
+            string seatType;
             vector<int> waitingNo;
             float totalFare;
             string passengerFile;

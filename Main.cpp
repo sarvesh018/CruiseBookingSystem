@@ -1,48 +1,74 @@
 #include <bits/stdc++.h>
 #include "Passenger.h"
-#include "Data.h"
+#include "Admin.h"
 using namespace std;
 
 int main() {
 
-    const string filename = "Passengers.txt";
-    
-    while(true){
-        cout<<"\n--------Choose 1 for bookings | Choose 2 for cancle | Choose 0 to exit---------"<<endl;
-        cout<<"Press Number: ";
-        int x;
-        cin>>x;
-        if(x == 0) break;
+     Admin admin;
+     storeDetails passengerDatabase;
+     admin.welcome();
 
-        Data data(filename);
+     while(true){
+          Passenger passenger;
+          cout<<"\n\t---Enter B for bookings "<<"| Enter C for cancelling bookings "<<"| Enter S for checking status "<<"| Enter F for checking cruise status | Exit (E)---"<<endl;
+     
+          char ch;
+          cout<<"\n\tEnter character to proceed: ";
+          cin>>ch;
 
-       if(x == 1){
-            Passenger p1;
-            p1.setPassengerDetails();
-            p1.showPassengersDetails();
+          // query handling
+          if(ch == 'e' || ch == 'E') break;
+          else if(ch=='b' || ch=='B'){
+               passenger.showTravelDetails();
+               cout<<"\n\tChoose Journey: ";
+               int ind;
+               cin>>ind;
 
-            data.updateNames(p1.getPassengerName());
-            data.updateID(p1.getPassengerID());
+               string filename = "cruise"+to_string(ind)+".txt";
+               
+               // getting cruise details which user has selected
+               Cruise cruise(filename);
+               passenger.pCruiseId = cruise.cruiseID;
+               // displaying cruise details for passenger
+               cruise.displayCruiseDetails();
+               string temp;
+               cout<<"\n\tContinue Booking (y/n): ";
+               cin>>temp;
 
-            // updating details
-            string newIDs = data.getIDs();
-            data.updateNameDetailsInFile(filename, 5, newIDs);
-            string newNames = data.getNames();
-            data.updateNameDetailsInFile(filename, 2, newNames);
-       }
-       else if(x == 2){
-            cout<<"-----------Booking Cancellation------------"<<endl;
-            string str;
-            cout<<"Enter Name: ";
-            cin>>str;
-            data.deletePassenger(str, filename);
+               // show details of types chosen by passenger
+               if(temp=="y"){
+                    passenger.setPassengerDetails();
 
-            cout<<data.getNames()<<endl;
-            cout<<data.getIDs()<<endl;
-       }
-        
-    }
-       
+                    cout<<"\n\t------Type: Economy(e) | Business(b) | Delux(d)------"<<endl;
+                    cout<<"\tChoose type: ";
+                    
+                    char type;
+                    cin>>type;
+                    // fill passenger journey details
+                    passenger.fillJourneyDetails(cruise);
 
-    return 0;
+                    // take number of seats by passenger and checking if booking is possible or not
+                    passenger.bookSeats(passenger, cruise, type);
+                    
+                    
+               }
+               else{
+                    continue;
+               }
+
+          }
+          else if(ch=='s' || ch=='S'){
+               string name, id;
+               cout<<"\n\tEnter Name: ";
+               cin.ignore();
+               getline(cin, name);
+
+               cout<<"\tEnter Booking ID: ";
+               cin>>id;
+               passengerDatabase.displayFileDetails(id, name);
+          }
+          cout<<"\n\n";
+     }
+     return 0;
 }
