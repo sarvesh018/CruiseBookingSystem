@@ -1,0 +1,9 @@
+Passenger Id: 				ABH852
+Cruise Id: 				TO125
+Name: 				Abhishek Khare
+Phone number: 				8523697412
+Seats Booked: 				D28 D45 
+Journey: 				Kochi ---> Lakshdweep
+Duration: 				01/02/24 | 13:00 ---> 03/02/24 | 15:00
+Status: 				Booked!
+-------------------------------------------
