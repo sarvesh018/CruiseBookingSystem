@@ -1,32 +1,31 @@
-#include <bits/stdc++.h>
+// storeDetails.h
+#pragma once
+#include <iostream>
+#include <vector>
+
 using namespace std;
 
 class storeDetails {
-    public:
-        // passenger personal details
-            string name;
-            string phnNumber;
-            string id;
-            
-            // cruise details for passenger
-            string cruiseId;
-            vector<string> seats;
-            string source, destination;
-            string departure, arrival;
-            string status;
-            string seatType;
-            vector<int> waitingNo;
-            float totalFare;
-            string passengerFile;
+public:
+    string name;
+    string phnNumber;
+    string id;
+    string cruiseId, seatType;
+    vector<string> seats;
+    int seatsRequired;
+    string source, destination;
+    string departure, arrival;
+    string status;
+    vector<int> waitingNo;
+    float totalFare;
 
-        storeDetails();
-        void setInput();
-        // ___________________________Store Data in file__________________________
+    storeDetails();
+
     void takeData();
-
-    void displayAllDetails();
-
-    void displayFileDetails(const string& I, const string& n);
-
     void deleteData(const string& d);
+    void displayFileDetails(const string& I, const string& n);
+    void displayAllDetails();
+    float calculateFare(string cruiseId, string seatType, int seats);
+    int findWaitingNumber(const string& cId, const string& type);
+    void updatingAfterWaitingNo(const string& cId, const string& type, vector<string> v, int w);
 };

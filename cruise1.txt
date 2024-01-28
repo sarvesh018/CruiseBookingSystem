@@ -1,6 +1,6 @@
 CruiseID:
 TO125
-
+ 
 CruiseName:
 TitanicOne 
 
@@ -14,13 +14,13 @@ AvailableD:
 D15|D28|D37|D45|D49|D54|D58|D61|D63|D68
 
 BookedB:
-B21|B22|B23|
+B26|B28|B29
 
 BookedE:
-E11|E12|E26|E35|
+E35|E41|E43|E12|E26|E11
 
 BookedD:
-D28|D37|
+D15|D28|D37
 
 Source:
 Kochi

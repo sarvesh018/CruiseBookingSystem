@@ -78,7 +78,7 @@ void Passenger::bookSeats(Passenger& passenger, Cruise cruise, char type){
     }
     else if(type == 'd' || type == 'D'){
         cout<<"\n\tSeats: ";
-        passenger.seatType = "Delux";
+        passenger.seatType = "Deluxe";
         cruise.displayTypeDetails(cruise.availableD, cruise.bookedD);
         passenger.setSeatsDetails(passenger, cruise.freeD, cruise);          
     }
@@ -130,6 +130,7 @@ void Passenger::setSeatsDetails(Passenger& passenger, vector<string> seats, Crui
         cout<<"\n\t\033[32mBooking Successfull :)\t\033[0m"<<endl;
 
         // write passenger booking details in file
+        database.seatsRequired = num;
         database.takeData();
 
         // update cruise details
@@ -153,15 +154,32 @@ void Passenger::setSeatsDetails(Passenger& passenger, vector<string> seats, Crui
         cin>>ch;
         if(ch=='Y' || ch=='y'){
             // code for waiting list
-            cout<<"\n\tSeats Confirmed will be: "<<(seats.size());
-            cout<<"\t|\tSeats in Waiting List: "<<(num - seats.size())<<endl;
-            cout<<"\n\t-----Enter available seat numbers-----"<<endl;
+            cout<<"\n\t\033[32mSeats Confirmed will be: "<<(seats.size())<<"\033[0m";
+            cout<<"\t|\t\033[31mSeats in Waiting List: "<<(num - seats.size())<<"\033[0m"<<endl;
+            
+            if(seats.size() > 0){
+                // take available seats 
+                passenger.takeSeatNumbers(seats.size());
+                database.seats = passenger.pSeats;
 
-            // take available seats 
-            passenger.takeSeatNumbers(seats.size());
+                // update confirmed seat deatails in cruise file
+                string id = passenger.pCruiseId;
+                if(passenger.seatType == "Economy"){
+                    cruise.updateSeatStatus('E', passenger.pSeats, cruise.freeE, cruise.bookedE, id);
+                }
+                else if(passenger.seatType == "Business"){
+                    cruise.updateSeatStatus('B', passenger.pSeats, cruise.freeB, cruise.bookedB, id);
+                }
+                else{
+                    cruise.updateSeatStatus('D', passenger.pSeats, cruise.freeD, cruise.bookedD, id);
+                }
+            }
 
+            storeDetails sd;
+            sd.seatsRequired = num;
+            database.seatsRequired = num;
             // updating passenger object in waiting list queue
-            int currentWaitingList = 0; // fetch from file
+            int currentWaitingList = sd.findWaitingNumber(passenger.pCruiseId, passenger.seatType)+1; // fetch from file
 
             // int temp = (num - seats.size()) + currentWaitingList;
             for(int i=0; i<num-seats.size(); i++){
@@ -173,6 +191,8 @@ void Passenger::setSeatsDetails(Passenger& passenger, vector<string> seats, Crui
             // update waiting list status in database
             database.status = passenger.status;
             database.waitingNo = passenger.waitingList;
+            
+            database.takeData();
         }
         else{
             return;

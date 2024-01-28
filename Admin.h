@@ -8,7 +8,9 @@ class Admin{
         string username;
         string password;
     public:
+        Admin();
         void welcome();
+        bool authenticate(string user, string pass);
 };
 
 #endif

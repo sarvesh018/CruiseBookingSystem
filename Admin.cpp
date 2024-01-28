@@ -2,9 +2,19 @@
 #include "Admin.h"
 using namespace std;
 
+Admin::Admin(){
+    username = "bluewave";
+    password = "bluewave@kpit";
+}
+bool Admin::authenticate(string user, string pass){
+    if(user == username && pass==password){
+        return true;
+    }
+    else return false;
+}
 void Admin::welcome(){
                 // Print a simplified ASCII art of a medieval sailing ship
-    std::cout << R"(
+    std::cout <<"\033[1m\033[36m"<< R"(
                                                                                          ____
                                                                                        //////|
                                                                                _________|____\_____
@@ -13,8 +23,8 @@ void Admin::welcome(){
                                                                \___________________/######################\_____
                                                            ==== |  |   |   |   |  |   |   |   |   |   |   |===\_____________
                                                            ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^~~~~~
-    )";
-    cout<<R"(
+    )"<<"\033[0m";
+    cout<<"\033[1m\033[34m"<<R"(
                           __        __       _                                   _              ____   _              __        __                    
                           \ \      / /  ___ | |  ___   ___   _ __ ___    ___    | |_   ___     | __ ) | | _   _   ___ \ \      / /  __ _ __   __  ___ 
                            \ \ /\ / /  / _ \| | / __| / _ \ | '_ ` _ \  / _ \   | __| / _ \    |  _ \ | || | | | / _ \ \ \ /\ / /  / _` |\ \ / / / _ \
@@ -22,5 +32,5 @@ void Admin::welcome(){
                              \_/\_/    \___||_| \___| \___/ |_| |_| |_| \___|    \__| \___/    |____/ |_| \__,_| \___|   \_/\_/    \__,_|  \_/   \___|
                                                                                                                                                           
 
-    )"<<endl;
+    )"<<"\033[0m"<<endl;
 }

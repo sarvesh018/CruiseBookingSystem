@@ -272,7 +272,7 @@ void Cruise::deleteBooking(const string &targetString)
     }
     else
     {
-        cerr << "Error: Element not found in any vector." << endl;
+        cerr << "\t\033[31mError: Enter Correct Passenger ID" << endl;
         return;
     }
 
@@ -281,7 +281,7 @@ void Cruise::deleteBooking(const string &targetString)
 
     if (!inputFile.is_open())
     {
-        cerr << "Error: Could not open the file." << endl;
+        cerr << "\t\033[31mError: Could not process your request" << endl;
         return;
     }
 
@@ -299,7 +299,7 @@ void Cruise::deleteBooking(const string &targetString)
     // Check if the vectors are not empty
     if (targetVector->empty())
     {
-        cerr << "Error: Vector is empty." << endl;
+        cerr << "\t\033[31mError: Try Again!!" << endl;
         return;
     }
 
@@ -367,7 +367,7 @@ void Cruise::deleteBooking(const string &targetString)
 
     if (!outputFile.is_open())
     {
-        cerr << "Error: Could not open the file for writing." << endl;
+        cerr << "\t\033[31mError: Could not process your request. Try Again!!" << endl;
         return;
     }
 
@@ -414,7 +414,7 @@ void Cruise::displayCruiseDetails(){
     displayTypeDetails(availableE, bookedE);
     cout<<"\tBusiness Class ";
     displayTypeDetails(availableB, bookedB);
-    cout<<"\tDelux Class ";
+    cout<<"\tDeluxe Class ";
     displayTypeDetails(availableD, bookedD);
     cout<<endl;
 }

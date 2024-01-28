@@ -1,30 +1,45 @@
-Passenger Id: 			SAR684
-Cruise Id: 				TO125
-Name: 					Sarvesh Choudhary
-Phone number: 			6845321
-Seats Booked: 			E26 E35 
-Seat Type: 				Economy
-Journey: 				Kochi ---> Lakshdweep
-Duration: 				01/02/24 | 13:00 ---> 03/02/24 | 15:00
-Status: 				Booked :)
--------------------------------------------------------------------
-Passenger Id: 			ABH984
-Cruise Id: 				IND026
-Name: 					Abhishek Khare
-Phone number: 			9846321
-Seats Booked: 			B122 
-Seat Type: 				Business
-Journey: 				Pondicherry ---> Goa
-Duration: 				03/02/24 | 02:00 ---> 03/02/24 | 17:30
-Status: 				Booked :)
--------------------------------------------------------------------
-Passenger Id: 			SAK984
-Cruise Id: 				BHT220
-Name: 					Saksham Sahu
-Phone number: 			984651322
-Seats Booked: 			D371 
-Seat Type: 				Delux
-Journey: 				Mumbai ---> Lakshdweep
-Duration: 				05/02/24 | 15:45 ---> 07/02/24 | 3:40
-Status: 				Booked :)
--------------------------------------------------------------------
+Passenger Id: 		SAR987
+Cruise Id: 			TO125
+Name: 			Sarvesh
+Phone number: 		9876532121
+Seat Type: 			Economy
+Seats Booked: 		E12 E26 
+Journey: 			Kochi ---> Lakshdweep
+Duration: 			01/02/24 | 13:00 ---> 03/02/24 | 15:00
+Status: 			Booked :)
+Total Fare(+GST): 		5900 Rs
+-------------------------------------------
+Passenger Id: 		SAK984
+Cruise Id: 			IND026
+Name: 			Saksham
+Phone number: 		984561322
+Seat Type: 			Business
+Seats Booked: 		B122 
+Journey: 			Pondicherry ---> Goa
+Duration: 			03/02/24 | 02:00 ---> 03/02/24 | 17:30
+Status: 			Booked :)
+Total Fare(+GST): 		8022.82 Rs
+-------------------------------------------
+Passenger Id: 		ABH984
+Cruise Id: 			BHT220
+Name: 			Abhishek
+Phone number: 		984531232
+Seat Type: 			Deluxe
+Seats Booked: 		D151 D281 D371 
+Journey: 			Mumbai ---> Lakshdweep
+Duration: 			05/02/24 | 15:45 ---> 07/02/24 | 3:40
+Status: 			Booked :)
+Total Fare(+GST): 		42795.1 Rs
+-------------------------------------------
+Passenger Id: 		AMA987
+Cruise Id: 			TO125
+Name: 			Aman
+Phone number: 		987564231
+Seat Type: 			Economy
+Seats Booked: 		E11 
+Journey: 			Kochi ---> Lakshdweep
+Duration: 			01/02/24 | 13:00 ---> 03/02/24 | 15:00
+Status: 			Booked :)
+Total Fare(+GST): 		2950 Rs
+-------------------------------------------
+
