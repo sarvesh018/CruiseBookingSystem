@@ -7,9 +7,9 @@ The system allows users to check booking status, cancel bookings, and handles si
 
 To run the project on your local machine, follow these commands:
 
-1. Compile the source code: g++ Main.cpp Passenger.cpp Cruise.cpp storeDetails.cpp Admin.cpp handleWaitingList.cpp -o run
+1. Compile the source code: ```g++ Main.cpp Passenger.cpp Cruise.cpp storeDetails.cpp Admin.cpp handleWaitingList.cpp -o run```
 
-2. Execute the compiled program: ./run
+2. Execute the compiled program: ```./run```
 
 ## Project Structure
 
